@@ -2,7 +2,7 @@ config {
     type: "view",
     name: "user_segments",
     tags: ["sales_funnel_report"],
-    description: "Analyze the users."
+    description: "User profile enrichment with segment based on age, gender and channel"
 }
 
 with users_filtered as (
