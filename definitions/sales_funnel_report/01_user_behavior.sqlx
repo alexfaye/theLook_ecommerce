@@ -1,0 +1,11 @@
+config {
+    type: "view",
+    name: "user_behavior",
+    tags: ["sales_funnel_report"],
+    description: "Capture user sessions and event types across traffic sources."
+}
+
+select user_id, session_id, traffic_source, browser, event_type, cast(created_at as Date) as event_date
+from ${ref("events")}
+where event_type in ('page_view', 'add_to_cart', 'purchase')
+and user_id is not null
