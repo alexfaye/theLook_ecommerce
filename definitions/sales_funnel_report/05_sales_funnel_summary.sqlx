@@ -1,0 +1,25 @@
+config {
+    type: "table",
+    name: "sales_funnel_summary",
+    tags: ["sales_funnel_report"],
+    description: "Products detail with distribution centers",
+    bigquery: {
+        partitionBy: "event_date",
+        clusterBy: ["user_id", "product_id"]
+    }
+}
+
+select ub.user_id, ub.session_id, ub.event_date, ub.traffic_source, ub.browser,
+us.age_band, us.gender,
+pd.product_id, pd.product_name, pd.product_category, pd.product_brand, pd.product_department, pd.retail_price, 
+od.sale_price, od.item_status, od.order_status,
+case when od.returned_at is not null then 'true'
+else 'false' end as is_returned,
+case when ub.event_type='add_to_cart' then 1
+else 0 end as added_to_cart,
+case when ub.event_type='purchase' then 1
+else 0 end as purchased
+from ${ref("user_behavior")} ub
+left join ${ref("user_segments")} us on us.user_id=ub.user_id
+left join ${ref("order_details")} od on od.user_id=us.user_id
+left join ${ref("product_dim")} pd on pd.product_id=od.product_id
