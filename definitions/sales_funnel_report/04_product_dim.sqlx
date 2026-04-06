@@ -1,0 +1,12 @@
+config {
+    type: "view",
+    name: "product_dim",
+    tags: ["sales_funnel_report"],
+    description: "Products detail with distribution centers"
+}
+
+select p.product_id, p.name as product_name, p.category as product_category, p.brand as product_brand,
+p.retail_price, dc.distribution_center_name, dc.latitude, dc.longitude
+from ${ref("products")} p
+join ${ref("distribution_centers")} dc
+on p.distribution_center_id=dc.id
