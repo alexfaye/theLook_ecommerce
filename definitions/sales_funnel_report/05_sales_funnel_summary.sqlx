@@ -11,7 +11,7 @@ config {
 
 select ub.user_id, ub.session_id, ub.event_date, ub.traffic_source, ub.browser,
 us.age_band, us.gender,
-pd.product_id, pd.product_name, pd.product_category, pd.product_brand, pd.product_department, pd.retail_price, 
+pd.product_id, pd.product_name, pd.product_category, pd.product_brand, pd.product_department, pd.retail_price,
 od.sale_price, od.item_status, od.order_status,
 case when od.returned_at is not null then 'true'
 else 'false' end as is_returned,
