@@ -1,0 +1,22 @@
+config {
+    type: "view",
+    name: "Order_details",
+    tags: ["sales_funnel_report"],
+    description: "Analyze the user behavior."
+}
+
+with base_items as (
+    select id, order_id, user_id, product_id, sale_price, status, created_at, shipped_at, delivered_at, returned_at
+    from ${ref("order_items")} oi
+    where cast(created_at as Date) >= '2024-06-01'),
+
+    orders_clean as (
+    select o.order_id, o.user_id, o.status as order_status, o.created_at as order_created_at, o.delivered_at, o.returned_at, o.num_of_item,
+    bi.product_id, bi.sale_price, bi.status, bi.created_at
+    from ${ref("orders")} o
+    join base_items bi on bi.order_id=o.order_id
+)
+
+select user_id, order_id, product_id, sale_price, status as item_status, order_status, created_at as item_created_at,
+delivered_at, returned_at
+from orders_clean
