@@ -1,6 +1,6 @@
 config {
     type: "view",
-    name: "Order_details",
+    name: "order_details",
     tags: ["sales_funnel_report"],
     description: "Analyze the order details."
 }
