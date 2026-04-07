@@ -6,7 +6,7 @@ config {
 }
 
 select p.id as product_id, p.name as product_name, p.category as product_category, p.brand as product_brand,
-p.retail_price, dc.name, dc.latitude, dc.longitude
+p.department, p.retail_price, dc.name, dc.latitude, dc.longitude
 from ${ref("products")} p
 left join ${ref("distribution_centers")} dc
 on p.distribution_center_id=dc.id
