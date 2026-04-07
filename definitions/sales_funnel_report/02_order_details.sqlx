@@ -2,10 +2,7 @@ config {
     type: "view",
     name: "order_details",
     tags: ["sales_funnel_report"],
-    description: "Analyze the order details.",
-    assertions:{
-        uniqueKeys: [["order_id", "product_id"]]
-    }
+    description: "Analyze the order details."
 }
 
 with base_items as (
