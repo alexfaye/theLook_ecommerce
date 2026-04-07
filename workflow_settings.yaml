@@ -1,4 +1,4 @@
 defaultProject: bigquery-test-march
-defaultDataset: theLook_eCommerce_Report
+defaultDataset: theLook_eCommerce_dev
 defaultAssertionDataset: dataform_assertions
 dataformCoreVersion: 3.0.42
