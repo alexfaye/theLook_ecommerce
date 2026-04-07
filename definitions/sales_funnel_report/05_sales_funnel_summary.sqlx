@@ -12,7 +12,7 @@ config {
 select ub.user_id, ub.session_id, ub.event_date, ub.traffic_source, ub.browser, ub.event_timestamp,
 us.age_band, us.gender, us.country, us.city, us.latitude, us.longitude,
 pd.product_id, pd.product_name, pd.product_category, pd.product_brand, pd.department, pd.retail_price, pd.cost,
-od.sale_price, od.item_status, od.order_status, (od.sale_price-pd.cost) as profit, ((od.sale_price-pd.cost)/pd.retail_price) as margin,
+od.order_id, od.sale_price, od.item_status, od.order_status, (od.sale_price-pd.cost) as profit, ((od.sale_price-pd.cost)/pd.retail_price) as margin,
 case when od.returned_at is not null then 'true'
 else 'false' end as is_returned,
 case when ub.event_type='add_to_cart' then 1
