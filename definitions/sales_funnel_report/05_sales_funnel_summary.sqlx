@@ -9,7 +9,7 @@ config {
     }
 }
 
-select ub.user_id, ub.session_id, ub.event_date, ub.traffic_source, ub.browser, ub.event_timestamp,
+select ub.user_id, ub.session_id, ub.event_date, ub.traffic_source, ub.browser, ub.event_timestamp, ub.event_type,
 us.age_band, us.gender, us.country, us.city, us.latitude, us.longitude,
 pd.product_id, pd.product_name, pd.product_category, pd.product_brand, pd.department, pd.retail_price, pd.cost,
 od.order_id, od.sale_price, od.item_status, od.order_status, (od.sale_price-pd.cost) as profit, ((od.sale_price-pd.cost)/pd.retail_price) as margin,

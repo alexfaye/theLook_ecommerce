@@ -8,4 +8,3 @@ config {
 select user_id, session_id, traffic_source, browser, event_type, cast(created_at as Date) as event_date, created_at as event_timestamp
 from ${ref("events")}
 where event_type in ('page_view', 'add_to_cart', 'purchase')
-and user_id is not null
