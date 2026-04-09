@@ -21,5 +21,5 @@ case when ub.event_type='purchase' then 1
 else 0 end as purchased
 from ${ref("user_behavior")} ub
 left join ${ref("user_segments")} us on us.user_id=ub.user_id
-left join ${ref("order_details")} od on od.user_id=us.user_id
+left join ${ref("order_details")} od on od.order_id=us.order_id
 left join ${ref("product_dim")} pd on pd.product_id=od.product_id
