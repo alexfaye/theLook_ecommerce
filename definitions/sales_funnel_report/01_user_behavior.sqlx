@@ -26,7 +26,7 @@ with base_items as (
 )
 
 select user_id, osm.session_id, created_at as event_timestamp, 'purchase' as event_type, 
-cast(null as string) as browser, cast(null as string) as traffic_source, cast(created_at as Date) as event_date,
+osm.browser, osm.traffic_source, cast(created_at as Date) as event_date,
 o.order_id, product_id, sale_price, status as item_status, order_status, created_at as item_created_at,
 delivered_at, returned_at
 from orders_clean o
