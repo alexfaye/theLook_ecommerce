@@ -25,7 +25,7 @@ with base_items as (
         qualify row_number() over(partition by o.order_id order by abs(timestamp_diff(o.order_created_at, e.created_at, Second)))=1
 )
 
-select user_id, osm.session_id, created_at as event_timestamp, 'purchase' as event_type, 
+select user_id, osm.session_id, created_at as event_timestamp, 'purchase' as event_type,
 osm.browser, osm.traffic_source, cast(created_at as Date) as event_date,
 o.order_id, product_id, sale_price, status as item_status, order_status, created_at as item_created_at,
 delivered_at, returned_at

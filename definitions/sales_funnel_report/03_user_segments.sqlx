@@ -7,9 +7,7 @@ config {
 
 with users_filtered as (
 select id as user_id, gender, age, city, country, traffic_source, created_at, latitude, longitude
-from ${ref("users")}
-where cast(created_at as Date) >= '2024-06-01'
-and gender is not null
+from ${ref("users")} where gender is not null
 )
 
 select user_id, gender, traffic_source, cast(age as Int64) as age,
