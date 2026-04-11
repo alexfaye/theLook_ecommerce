@@ -20,7 +20,7 @@ with base_items as (
     -- along with the latest date we could get from the events table partition by the order_id to get the nearest date to assign to order table
     order_session_mapping as (
         select o.order_id, e.session_id, e.browser, e.traffic_source from orders_clean o
-        left join ${ref("events")} e on o.user_id=e.user_id and e.event_type='purchase'
+        left join ${ref("events")} e on o.user_id=e.user_id
         and cast(o.order_created_at as Date)=cast(e.created_at as Date)
         qualify row_number() over(partition by o.order_id order by abs(timestamp_diff(o.order_created_at, e.created_at, Second)))=1
 )
