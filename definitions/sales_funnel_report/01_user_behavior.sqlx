@@ -8,13 +8,24 @@ config {
 with base_items as (
     -- Connect order_items and orders table
     select id, order_id, user_id, product_id, sale_price, status, created_at, shipped_at, delivered_at, returned_at
-    from ${ref("order_items")}),
+        from ${ref("order_items")}),
 
     orders_clean as (
-    select o.order_id, o.user_id, o.status as order_status, bi.created_at as order_created_at, o.delivered_at, o.returned_at, o.num_of_item,
-    bi.product_id, bi.sale_price, bi.status
-    from ${ref("orders")} o
-    join base_items bi on bi.order_id=o.order_id),
+        select o.order_id, o.user_id, o.status as order_status, bi.created_at as order_created_at, o.delivered_at, o.returned_at, o.num_of_item,
+        bi.product_id, bi.sale_price, bi.status
+        from ${ref("orders")} o
+        join base_items bi on bi.order_id=o.order_id),
+
+    
+    -- The following two CTE creates two new calculated fields to store every users' first purchase month and the months between the
+    -- first order and the current order
+    user_first_order as (
+        select user_id, min(date_trunc(date(order_created_at), month)) as first_purchase_month
+        from orders_clean group by 1),
+
+    orders_with_month_index as (
+        select t.*, t.order_created_at, u.first_purchase_month, date_diff(date_trunc(date(t.order_created_at), month), u.first_purchase_month, month) as order_with_month_index
+        from orders_clean t left join user_first_order u on t.user_id=u.user_id),
 
     -- Unfortunately there is no session_id in the orders table so we have to join the events table and order table with only user_id,
     -- along with the latest date we could get from the events table partition by the order_id to get the nearest date to assign to order table
@@ -28,8 +39,8 @@ with base_items as (
 select user_id, osm.session_id, created_at as event_timestamp, 'purchase' as event_type,
 osm.browser, osm.traffic_source, cast(created_at as Date) as event_date,
 o.order_id, product_id, sale_price, status as item_status, order_status, created_at as item_created_at,
-delivered_at, returned_at
-from orders_clean o
+delivered_at, returned_at, first_purchase_month, order_with_month_index
+from orders_with_month_index o
 left join order_session_mapping osm on o.order_id=osm.order_id
 
 union all
@@ -37,6 +48,7 @@ union all
 select user_id, session_id, created_at as event_timestamp, event_type, browser, traffic_source,
 cast(created_at as Date) as event_date, cast(null as int64) as order_id, cast(null as int64) as product_id, 
 cast(null as float64) as sale_price, cast(null as string) as item_status, cast(null as string) as order_status, 
-cast(null as timestamp) as item_created_at, cast(null as timestamp) as delivered_at, cast(null as timestamp) as returned_at
+cast(null as timestamp) as item_created_at, cast(null as timestamp) as delivered_at, cast(null as timestamp) as returned_at,
+cast(null as Date) as first_purchase_month, cast(null as Int64) as order_with_month_index
 from ${ref("events")}
 where event_type <> 'purchase' --remove the purchase events because they also exists in order details part.

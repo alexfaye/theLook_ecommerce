@@ -10,7 +10,7 @@ config {
 }
 
 select ub.user_id, ub.session_id, ub.event_timestamp, ub.event_type, ub.browser, ub.traffic_source, ub.event_date, ub.order_id,
-ub.sale_price, ub.item_status, ub.order_status, ub.item_created_at, ub.delivered_at, ub.returned_at,
+ub.sale_price, ub.item_status, ub.order_status, ub.item_created_at, ub.delivered_at, ub.returned_at, ub.first_purchase_month, ub.order_with_month_index,
 us.age_band, us.gender, us.country, us.city, us.latitude, us.longitude,
 pd.product_id, pd.product_name, pd.product_category, pd.product_brand, pd.department, pd.retail_price, pd.cost,
 (ub.sale_price-pd.cost) as profit, ((ub.sale_price-pd.cost)/pd.retail_price) as margin,
