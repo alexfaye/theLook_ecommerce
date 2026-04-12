@@ -3,8 +3,6 @@ This is a pratical data analysis with theLook eCoomerce dataset with BigQuery an
 
 This README is designed to showcase your transition from a **Web Developer** to a **Data-Driven Growth Engineer**. It highlights your ability to handle the entire data pipeline—from raw BigQuery data to actionable marketing insights.
 
----
-
 # E-commerce Growth & Marketing Analytics (thelook_ecommerce)
 
 ## 📌 Project Overview
@@ -17,8 +15,6 @@ The goal is to bridge the gap between **Web Development** and **Business Intelli
 * **Data Modeling & Transformation:** Dataform (SQLX)
 * **Visualization:** Looker Studio
 * **Concepts:** Star Schema, One Wide Table, Session Attribution, CRO (Conversion Rate Optimization).
-
----
 
 ## 🚀 Key Features & Data Modeling
 
@@ -34,15 +30,11 @@ This project focuses on the metrics that drive ROI:
 * **Conversion Funnel Leakage:** Identifying exactly where users drop off—from `product_view` to `cart_add` to `purchase`.
 * **Product Affinity (Basket Analysis):** Identifying products frequently bought together to inform cross-selling UI/UX designs.
 
----
-
 ## 📊 Business Impact & Decision Support
 This dashboard doesn't just show "numbers"; it provides **strategic recommendations**:
 * **Budget Optimization:** Identifies underperforming ad channels where CAC (Customer Acquisition Cost) exceeds LTV.
 * **UX Friction Detection:** Highlights pages with high drop-off rates, signaling the need for technical performance audits or mobile responsiveness fixes.
 * **Inventory Intelligence:** Correlates sales trends with stock levels to prevent lost revenue from "Out of Stock" scenarios.
-
----
 
 ## 📈 Dashboard Preview (Looker Studio)
 *The dashboard includes three primary views:*
@@ -50,15 +42,11 @@ This dashboard doesn't just show "numbers"; it provides **strategic recommendati
 2.  **Marketing Deep-Dive:** Channel performance and attribution breakdown.
 3.  **Customer Behavior:** Cohort analysis and geographic distribution (focused on the Australian market context).
 
----
-
 ## 👨‍💻 About Me
 I am a **Web Designer & Developer** with a passion for **Data & Digital Marketing**. I believe that every line of code and every design choice should be backed by data. 
 
 * **Location:** Adelaide, Australia
 * **Specialties:** WordPress/Shopify Dev, Technical SEO, GTM Server-Side Tracking, BigQuery Analytics.
-
----
 
 ### How to use this repo
 1.  **Definitions:** Check the `definitions/` folder for the SQLX logic used in Dataform.
