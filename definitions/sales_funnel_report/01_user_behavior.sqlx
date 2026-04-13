@@ -15,7 +15,6 @@ with base_items as (
         bi.product_id, bi.sale_price, bi.status
         from ${ref("orders")} o
         join base_items bi on bi.order_id=o.order_id),
-
     
     -- The following two CTE creates two new calculated fields to store every users' first purchase month and the months between the
     -- first order and the current order
