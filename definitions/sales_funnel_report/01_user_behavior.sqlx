@@ -37,18 +37,18 @@ with base_items as (
 )
 
 select user_id, osm.session_id, created_at as event_timestamp, 'purchase' as event_type,
-osm.browser, osm.traffic_source, cast(created_at as Date) as event_date,
-o.order_id, product_id, sale_price, status as item_status, order_status, created_at as item_created_at,
-delivered_at, returned_at, first_purchase_month, order_with_month_index
-from orders_with_month_index o
-left join order_session_mapping osm on o.order_id=osm.order_id
+    osm.browser, osm.traffic_source, cast(created_at as Date) as event_date,
+    o.order_id, product_id, sale_price, status as item_status, order_status, created_at as item_created_at,
+    delivered_at, returned_at, first_purchase_month, order_with_month_index
+    from orders_with_month_index o
+    left join order_session_mapping osm on o.order_id=osm.order_id
 
 union all
 
 select user_id, session_id, created_at as event_timestamp, event_type, browser, traffic_source,
-cast(created_at as Date) as event_date, cast(null as int64) as order_id, cast(null as int64) as product_id, 
-cast(null as float64) as sale_price, cast(null as string) as item_status, cast(null as string) as order_status, 
-cast(null as timestamp) as item_created_at, cast(null as timestamp) as delivered_at, cast(null as timestamp) as returned_at,
-cast(null as Date) as first_purchase_month, cast(null as Int64) as order_with_month_index
-from ${ref("events")}
-where event_type <> 'purchase' --remove the purchase events because they also exists in order details part.
+    cast(created_at as Date) as event_date, cast(null as int64) as order_id, cast(null as int64) as product_id, 
+    cast(null as float64) as sale_price, cast(null as string) as item_status, cast(null as string) as order_status, 
+    cast(null as timestamp) as item_created_at, cast(null as timestamp) as delivered_at, cast(null as timestamp) as returned_at,
+    cast(null as Date) as first_purchase_month, cast(null as Int64) as order_with_month_index
+    from ${ref("events")}
+    where event_type <> 'purchase' --remove the purchase events because they also exists in order details part.

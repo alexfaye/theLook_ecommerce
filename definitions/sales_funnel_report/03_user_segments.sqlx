@@ -6,16 +6,16 @@ config {
 }
 
 with users_filtered as (
-select id as user_id, gender, age, city, country, traffic_source, created_at, latitude, longitude
-from ${ref("users")} where gender is not null
+    select id as user_id, gender, age, city, country, traffic_source, created_at, latitude, longitude
+    from ${ref("users")} where gender is not null
 )
 
 select user_id, gender, traffic_source, cast(age as Int64) as age,
-case when age between 18 and 25 then '18–25'
-    when age between 26 and 35 then '26-35'
-    when age between 36 and 50 then '36-50'
-    when age > 50 then '50+'
-    else 'Others'
-    end as age_band,
+    case when age between 18 and 25 then '18–25'
+        when age between 26 and 35 then '26-35'
+        when age between 36 and 50 then '36-50'
+        when age > 50 then '50+'
+        else 'Others'
+        end as age_band,
     city, country, latitude, longitude
 from users_filtered
