@@ -23,6 +23,6 @@ select ub.user_id, ub.session_id, ub.event_timestamp, ub.event_type, ub.browser,
     case 
         when ub.event_type='purchase' then 1
         else 0 end as purchased
-    ${ref("user_behavior")} ub
+    from ${ref("user_behavior")} ub
     left join ${ref("user_segments")} us on us.user_id=ub.user_id
     left join ${ref("product_dim")} pd on pd.product_id=ub.product_id
